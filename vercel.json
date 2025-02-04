@@ -7,8 +7,5 @@
         "maxLambdaSize": "50mb"
       }
     }
-  ],
-  "hooks": {
-    "build": "npx prisma generate"
-  }
+  ]
 }
