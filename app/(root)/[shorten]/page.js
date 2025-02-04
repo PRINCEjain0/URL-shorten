@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
-export default function RedirectPage(params) {
+export default function RedirectPage() {
   const router = useRouter();
-  const { shortUrl } = params;
+  const pathname = usePathname();
+  const shortUrl = pathname.split("/").pop();
 
   useEffect(() => {
     async function redirect() {
       try {
+        console.log("Redirecting to:", shortUrl);
         const res = await fetch(`/api/${shortUrl}`);
         if (!res.ok) {
           throw new Error("Failed to fetch URL");
         }
         const data = await res.json();
         if (data.longUrl) {
-          window.location.href = data.longUrl;
+          router.push(data.longUrl);
         } else {
           router.push("/404");
         }
@@ -26,7 +28,9 @@ export default function RedirectPage(params) {
       }
     }
 
-    redirect();
+    if (shortUrl) {
+      redirect();
+    }
   }, [shortUrl, router]);
 
   return <div>Redirecting...</div>;

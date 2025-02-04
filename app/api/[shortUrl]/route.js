@@ -2,18 +2,16 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function GET(req) {
-  const shortUrl = req.json();
+export async function GET(request, { params }) {
+  const { shortUrl } = await params;
 
-  const Url = await prisma.uRL.findUnique({
-    where: {
-      shortUrl,
-    },
+  const url = await prisma.uRL.findUnique({
+    where: { shortUrl },
   });
 
-  if (!Url) {
+  if (!url) {
     return Response.json({ error: "URL not found" }, { status: 404 });
   }
 
-  return Response.redirect(Url.longUrl);
+  return Response.json({ longUrl: url.longUrl });
 }
