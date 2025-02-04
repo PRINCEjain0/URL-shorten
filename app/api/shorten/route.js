@@ -8,7 +8,7 @@ export async function POST(req) {
     const { longUrl } = await req.json();
     const shortUrl = nanoid(5);
 
-    const newUrl = await prisma.URL.create({
+    await prisma.URL.create({
       data: {
         shortUrl,
         longUrl,
@@ -17,9 +17,6 @@ export async function POST(req) {
 
     return Response.json({ shortUrl: `http://localhost:3001/${shortUrl}` });
   } catch (error) {
-    return Response.json(
-      { error: "Error creating short URL" },
-      { status: 500 }
-    );
+    return Response.json({ error: error }, { status: 500 });
   }
 }
