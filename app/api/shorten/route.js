@@ -15,9 +15,7 @@ export async function POST(req) {
       },
     });
 
-    return Response.json({
-      shortUrl: `https://urlshorten-six.vercel.app/${shortUrl}`,
-    });
+    return Response.json({ shortUrl: `http://localhost:3001/${shortUrl}` });
   } catch (error) {
     return Response.json({ error: error }, { status: 500 });
   }
