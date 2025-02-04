@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function Get(req) {
+export async function GET(req) {
   const shortUrl = req.json();
 
   const Url = await prisma.uRL.findUnique({
@@ -17,5 +17,3 @@ async function Get(req) {
 
   return Response.redirect(Url.longUrl);
 }
-
-export default Get;

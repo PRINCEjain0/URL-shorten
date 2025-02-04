@@ -15,7 +15,7 @@ export async function POST(req) {
       },
     });
 
-    return Response.json({ shortUrl: `https://yourdomain.com/${shortUrl}` });
+    return Response.json({ shortUrl: `http://localhost:3001/${shortUrl}` });
   } catch (error) {
     return Response.json(
       { error: "Error creating short URL" },
